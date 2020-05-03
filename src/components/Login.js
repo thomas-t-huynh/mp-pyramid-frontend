@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -11,9 +11,8 @@ function Login({ setUserData }) {
     const history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault()
-       
         axios
-            .get(`https://www.mountainproject.com/data/get-user?email=${email}&key=200690742-42241ba1e91a3117df55a44758abbb73`)
+            .get(`https://www.mountainproject.com/data/get-user?userId=109791883&key=200690742-42241ba1e91a3117df55a44758abbb73`)
             .then((res) => {
                 setUserData(res.data)
                 setError(undefined)

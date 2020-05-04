@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import * as data from "../assets/data/workouts.json";
 
-function SearchExercise() {
+import SearchExerciseModal from "./SearchExerciseModal";
+
+const initExerciseData = {
+    name:"",
+    type: "",
+    subtype: ""
+}
+
+function SearchExercise({ handleSetTemplate }) {
 
     const mapDataToWorkouts = () => {
         let res = {
@@ -15,7 +23,6 @@ function SearchExercise() {
                 Object.keys(data.default[type][subtype]).forEach(exercise => {
                     res.exercises.push({
                         name: exercise,
-                        ...data.default[type][subtype][exercise],
                         type,
                         subtype
                     })
@@ -28,8 +35,8 @@ function SearchExercise() {
     const [ workouts, setWorkouts ] = useState(mapDataToWorkouts());
     const [ searchWord, setSearchWord ] = useState("");
     const [ searchTypes, setSearchTypes ] = useState({ type: "", subtype: "" })
-
-    // console.log(workouts)
+    const [ modal, setModal ] = useState(false)
+    const [ exercise, setExercise ] = useState(initExerciseData)
 
     const searchResults = () => {
         const { type, subtype } = searchTypes
@@ -46,7 +53,12 @@ function SearchExercise() {
     const handleOnTypeChange = e => {
         setSearchTypes({ ...searchTypes, [e.target.name]: e.target.value })
     }
-    console.log(searchTypes)
+    
+    const openModal = (res) => {
+        setExercise(res)
+        setModal(true)
+    }
+
     return (
         <div>
             <h2>Add a workout</h2>
@@ -59,8 +71,9 @@ function SearchExercise() {
                 <option value="" />
                 {workouts.types[searchTypes.type].map((subtype, i) => <option key={i} value={subtype}>{subtype}</option>)}
             </select>}
+            <SearchExerciseModal modal={modal} setModal={setModal} exercise={exercise} setExercise={setExercise} />
             <input type="text" onChange={e => setSearchWord(e.target.value)} value={searchWord} />
-            {searchResults() ? searchResults().map((res, i) => <p key={i}>{res.name}</p>) : <p>No results</p>}
+            {searchResults() ? searchResults().map((res, i) => <p onClick={() => openModal(res)} key={i}>{res.name}</p>) : <p>No results</p>}
         </div>
     )
 }

@@ -242,15 +242,15 @@
             }
         }
     },
-    "Conditionning":{
+    "Conditioning":{
         "Antagonist Muscles":{
-            "Stabilizer Conditionning":{
+            "Stabilizer Conditioning":{
                 "Exercices":"3 exos x 3 sets x 10 reps\nexos are : External Rotations, Standing Y, Triceps extension\nRest 01:00 between sets",
                 "Description":"Complete 3 sets of 10 reps of each exercise on each side of the body.  Rest 1 minute between sets and exercises.\nUse a Theraband with good resistance for each exercise\nProgression: Increase intensity by using a stiffer Theraband.",
                 "duration":20,
                 "coefficient":18
             },
-            "Forearm Conditionning":{
+            "Forearm Conditioning":{
                 "Exercices":"2 exos x 3 sets x 10 reps\nexos are : Flexor Curl, Extensor Curl\nRest 01:00 between sets",
                 "Description":"Complete 3 sets of 10 reps of each curl or both arms. Rest 1 minute between sets and exercises.\nStart in a sitting position on a chair or bench with your feet on the floor and knees at 90 degrees. Your thigh should be close to horizontal.\nRest your forearm along your thigh with your wrist hanging off the end of your knee. Each exercise involves holding a dumbbell in one hand off the end of your leg and your arm in a relaxed position. Then curl bend the wrist to lift the dumbbell in one small movement as high as possible without lifting your forearm off your thigh. Once at the top of the possible movement, pause and slowly lower the dombbell to the starting position.\nFlexor curl = Palms facing upwards\nExtensor curls = Palms facing downwards\nUse the maximum weight possible to complete the 3 sets of 10 reps. Extensor curls will use a considerably smaller weight than flexor curls.",
                 "duration":10,

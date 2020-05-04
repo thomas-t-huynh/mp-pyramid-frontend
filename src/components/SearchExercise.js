@@ -9,7 +9,7 @@ const initExerciseData = {
     subtype: ""
 }
 
-function SearchExercise({ handleSetTemplate }) {
+function SearchExercise() {
 
     const mapDataToWorkouts = () => {
         let res = {

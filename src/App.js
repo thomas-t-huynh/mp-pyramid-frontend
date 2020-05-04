@@ -5,6 +5,7 @@ import axios from "axios";
 import WelcomePage from "./components/WelcomePage";
 import Login from "./components/Login";
 import UserProfile from "./components/UserProfile";
+import WeekTemplate from "./components/WeekTemplate";
 
 import "./App.css";
 
@@ -19,8 +20,8 @@ function App() {
         setUserData(res.data)
       })
       .catch((err) => console.log(err))
-  })
-  
+  }, [])
+
   return (
     <div>
       <Route exact path="/" component={WelcomePage} />
@@ -29,8 +30,13 @@ function App() {
         render={props => <Login {...props} setUserData={setUserData} />}
       />
       <Route
+        exact
         path="/user/:id"
         render={props => <UserProfile {...props} userData={userData} />}
+      />
+      <Route
+        path="/user/:id/template"
+        component={WeekTemplate}
       />
     </div>
   );

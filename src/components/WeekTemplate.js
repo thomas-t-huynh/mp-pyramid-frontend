@@ -3,7 +3,7 @@ import * as workouts from "../assets/data/workouts.json";
 import DayTemplate from "./DayTemplate";
 
 function WeekTemplate() {
-    const [template, setTemplate] = useState({
+    const [weekTemplate, setWeekTemplate] = useState({
         sun: {},
         mon: {},
         tue: {},
@@ -14,7 +14,7 @@ function WeekTemplate() {
     })
     return (
         <div>
-            <DayTemplate />
+            <DayTemplate setWeekTemplate={setWeekTemplate} />
         </div>
     )
 }

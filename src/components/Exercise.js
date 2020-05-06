@@ -8,7 +8,8 @@ const Container = styled.div`
   width: 200px;
 `;
 
-function Exercise({ name, id }) {
+function Exercise(props) {
+  const { id } = props;
   return (
     <Draggable draggableId={`${id}`} index={id}>
       {(provided, snapshot) => (
@@ -18,7 +19,7 @@ function Exercise({ name, id }) {
           {...provided.dragHandleProps}
           isDragging={snapshot.isDragging}
         >
-          <h3>{name}</h3>
+          <h3>{props.children}</h3>
         </Container>
       )}
     </Draggable>

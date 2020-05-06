@@ -6,7 +6,7 @@ import { DayTemplateContext } from "../contexts";
 Modal.setAppElement("#root");
 
 function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
-    const { handleSetTemplate } = useContext(DayTemplateContext);
+    const { handleSetExercises } = useContext(DayTemplateContext);
   const [variables, setVariables] = useState({
     duration: undefined,
     sets: undefined,
@@ -26,7 +26,7 @@ function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
           }
       })
       setModal(false)
-      handleSetTemplate(newExercise)
+      handleSetExercises(newExercise)
   }
 
   return (

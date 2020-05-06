@@ -5,10 +5,17 @@ import SearchExercise from "./SearchExercise";
 import Exercise from "./Exercise";
 import { DayTemplateContext } from "../contexts";
 
-function DayTemplate() {
-  const [template, setTemplate] = useState([]);
-  const handleSetTemplate = exercise => {
-    setTemplate([...template, exercise]);
+const initDayTemplate = {
+  day: "",
+  time: "",
+  exercises: {},
+  exercisesOrder: []
+}
+
+function DayTemplate({ setWeekTemplate }) {
+  const [ dayTemplate, setDayTemplate ] = useState(initDayTemplate);
+  const handleSetExercises = exercise => {
+    setDayTemplate({...dayTemplate, exercises: {...dayTemplate.exercises, [exercise.name]: exercise }, exercisesOrder: [...dayTemplate.exercisesOrder, exercise.name] });
   };
 
   const onDragEnd = result => {
@@ -26,13 +33,13 @@ function DayTemplate() {
     ) {
       return;
     }
-    let newTemplate = [...template];
-    newTemplate.splice(source.index, 1);
-    newTemplate.splice(destination.index, 0, template[draggableId]);
-    setTemplate(newTemplate);
+    const { exercisesOrder } = dayTemplate;
+    let newExercises = [...exercisesOrder];
+    newExercises.splice(source.index, 1);
+    newExercises.splice(destination.index, 0, exercisesOrder[draggableId]);
+    setDayTemplate({...dayTemplate, exercisesOrder: newExercises });
   };
 
-  console.log('rerender: ',template);
   return (
     <div>
       <DragDropContext
@@ -45,15 +52,18 @@ function DayTemplate() {
               ref={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {template.map((exercise, i) => (
-                <Exercise {...exercise} id={i} key={i} />
+              {dayTemplate.exercisesOrder.map((exercise, i) => (
+                <Exercise id={i} key={i}>{exercise}</Exercise>
               ))}
               {provided.placeholder}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      <DayTemplateContext.Provider value={{ handleSetTemplate }}>
+      <input type="time" />
+      <button>Set day's exercise</button>
+      <DayTemplateContext.Provider value={{ handleSetExercises }}>
+        
         <SearchExercise />
       </DayTemplateContext.Provider>
     </div>

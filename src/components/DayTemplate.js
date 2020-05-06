@@ -40,6 +40,10 @@ function DayTemplate({ setWeekTemplate }) {
     setDayTemplate({...dayTemplate, exercisesOrder: newExercises });
   };
 
+  const handleOnChange = e => {
+    setDayTemplate({...dayTemplate, [e.target.name]: e.target.value })
+  }
+
   return (
     <div>
       <DragDropContext
@@ -60,7 +64,17 @@ function DayTemplate({ setWeekTemplate }) {
           )}
         </Droppable>
       </DragDropContext>
-      <input type="time" />
+      <select name="day" onChange={handleOnChange}>
+        <option value=""/>
+        <option value="sun">Sunday</option>
+        <option value="mon">Monday</option>
+        <option value="tue">Tuesday</option>
+        <option value="wed">Wednesday</option>
+        <option value="thu">Thursday</option>
+        <option value="fri">Friday</option>
+        <option value="sat">Saturday</option>
+      </select>
+      <input type="time" onChange={handleOnChange} />
       <button>Set day's exercise</button>
       <DayTemplateContext.Provider value={{ handleSetExercises }}>
         

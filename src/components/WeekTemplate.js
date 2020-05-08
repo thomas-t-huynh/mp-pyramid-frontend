@@ -12,9 +12,10 @@ function WeekTemplate() {
         fri: {},
         sat: {}
     })
+    console.log(weekTemplate)
     return (
         <div>
-            <DayTemplate setWeekTemplate={setWeekTemplate} />
+            <DayTemplate weekTemplate={weekTemplate} setWeekTemplate={setWeekTemplate} />
         </div>
     )
 }

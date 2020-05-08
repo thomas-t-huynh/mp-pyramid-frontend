@@ -12,8 +12,9 @@ const initDayTemplate = {
   exercisesOrder: []
 }
 
-function DayTemplate({ setWeekTemplate }) {
+function DayTemplate({ setWeekTemplate, weekTemplate }) {
   const [ dayTemplate, setDayTemplate ] = useState(initDayTemplate);
+  const [ error, setError ] = useState()
   const handleSetExercises = exercise => {
     setDayTemplate({...dayTemplate, exercises: {...dayTemplate.exercises, [exercise.name]: exercise }, exercisesOrder: [...dayTemplate.exercisesOrder, exercise.name] });
   };
@@ -44,8 +45,19 @@ function DayTemplate({ setWeekTemplate }) {
     setDayTemplate({...dayTemplate, [e.target.name]: e.target.value })
   }
 
+  const handleSetWeekTemplate = () => {
+    for (const prop in dayTemplate) {
+      if (dayTemplate[prop] === initDayTemplate[prop]) {
+        return setError("Please enter in all values for the template")
+      }
+    }
+    setError("")
+    setWeekTemplate( { ...weekTemplate, [dayTemplate.day]: { [dayTemplate.time]: {...dayTemplate }}} )
+  }
+
   return (
     <div>
+      {error && <h2>{error}</h2>}
       <DragDropContext
         onDragEnd={onDragEnd}
       >
@@ -64,7 +76,7 @@ function DayTemplate({ setWeekTemplate }) {
           )}
         </Droppable>
       </DragDropContext>
-      <select name="day" onChange={handleOnChange}>
+      <select name="day" onChange={handleOnChange} value={dayTemplate.day}>
         <option value=""/>
         <option value="sun">Sunday</option>
         <option value="mon">Monday</option>
@@ -74,8 +86,8 @@ function DayTemplate({ setWeekTemplate }) {
         <option value="fri">Friday</option>
         <option value="sat">Saturday</option>
       </select>
-      <input type="time" onChange={handleOnChange} />
-      <button>Set day's exercise</button>
+      <input type="time" name="time" onChange={handleOnChange} value={dayTemplate.time}/>
+      <button onClick={() => handleSetWeekTemplate()}>Set day's exercise</button>
       <DayTemplateContext.Provider value={{ handleSetExercises }}>
         
         <SearchExercise />

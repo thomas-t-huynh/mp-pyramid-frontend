@@ -12,8 +12,15 @@ const initDayTemplate = {
   exercisesOrder: []
 }
 
+const dummyData = {
+  day: "sun",
+  time: "10:00",
+  exercises: {},
+  exercisesOrder: []
+}
+
 function DayTemplate({ setWeekTemplate, weekTemplate }) {
-  const [ dayTemplate, setDayTemplate ] = useState(initDayTemplate);
+  const [ dayTemplate, setDayTemplate ] = useState(dummyData);
   const [ error, setError ] = useState()
   const handleSetExercises = exercise => {
     setDayTemplate({...dayTemplate, exercises: {...dayTemplate.exercises, [exercise.name]: exercise }, exercisesOrder: [...dayTemplate.exercisesOrder, exercise.name] });
@@ -51,8 +58,9 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
         return setError("Please enter in all values for the template")
       }
     }
+    const intTime = parseInt(dayTemplate.time.replace(":", ""))
     setError("")
-    setWeekTemplate( { ...weekTemplate, [dayTemplate.day]: { [dayTemplate.time]: {...dayTemplate }}} )
+    setWeekTemplate( { ...weekTemplate, [dayTemplate.day]: { ...weekTemplate[dayTemplate.day], sessions: [ ...weekTemplate[dayTemplate.day].sessions, {...dayTemplate, intTime } ]}} )
   }
 
   return (
@@ -89,7 +97,6 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
       <input type="time" name="time" onChange={handleOnChange} value={dayTemplate.time}/>
       <button onClick={() => handleSetWeekTemplate()}>Set day's exercise</button>
       <DayTemplateContext.Provider value={{ handleSetExercises }}>
-        
         <SearchExercise />
       </DayTemplateContext.Provider>
     </div>

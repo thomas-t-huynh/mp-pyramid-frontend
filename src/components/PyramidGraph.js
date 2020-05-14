@@ -5,7 +5,7 @@ function PyramidGraph({ name, id }) {
     const [ base64, setBase64 ] = useState("")
     useEffect(() => {
         const nameWithHyphen = name.replace(" ", "-")
-        axios.post(`https://cors-anywhere.herokuapp.com/https://climbing-training-api.herokuapp.com/pyramid`, { 
+        axios.post(`https://climbing-training-api.herokuapp.com/pyramid`, { 
             csv: `https://www.mountainproject.com/user/${id}/${nameWithHyphen}/tick-export` 
         })
         .then(res => {

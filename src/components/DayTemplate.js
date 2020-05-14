@@ -22,6 +22,7 @@ const dummyData = {
 function DayTemplate({ setWeekTemplate, weekTemplate }) {
   const [ dayTemplate, setDayTemplate ] = useState(dummyData);
   const [ error, setError ] = useState()
+  const [ edit, setEdit ] = useState(false)
   const handleSetExercises = exercise => {
     setDayTemplate({...dayTemplate, exercises: {...dayTemplate.exercises, [exercise.name]: exercise }, exercisesOrder: [...dayTemplate.exercisesOrder, exercise.name] });
   };
@@ -63,6 +64,11 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
     setWeekTemplate( { ...weekTemplate, [dayTemplate.day]: { ...weekTemplate[dayTemplate.day], sessions: [ ...weekTemplate[dayTemplate.day].sessions, {...dayTemplate, intTime } ]}} )
   }
 
+  const handleSetEdit = template => {
+    setDayTemplate(template)
+    setEdit(true)
+  }
+
   return (
     <div>
       {error && <h2>{error}</h2>}
@@ -96,7 +102,7 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
       </select>
       <input type="time" name="time" onChange={handleOnChange} value={dayTemplate.time}/>
       <button onClick={() => handleSetWeekTemplate()}>Set day's exercise</button>
-      <DayTemplateContext.Provider value={{ handleSetExercises }}>
+      <DayTemplateContext.Provider value={{ handleSetExercises, handleSetEdit }}>
         <SearchExercise />
       </DayTemplateContext.Provider>
     </div>

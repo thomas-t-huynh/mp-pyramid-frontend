@@ -1,7 +1,7 @@
 import React from "react";
 
-import RouteList from "./RouteList";
-import PyramidGraph from "./PyramidGraph";
+import RouteList from "../components/RouteList";
+import PyramidGraph from "../components/PyramidGraph";
 
 function UserProfile({ userData }) {
     // auto route search for dev
@@ -12,7 +12,7 @@ function UserProfile({ userData }) {
         <div>
           <h1>Welcome {userData.name}</h1>
           <img alt={userData.name} src={userData.avatar} />
-          {/* <PyramidGraph {...userData} /> */}
+          <PyramidGraph {...userData} />
           <RouteList />
         </div>
       );

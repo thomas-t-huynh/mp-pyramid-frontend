@@ -4,10 +4,9 @@ import axios from "axios";
 
 import WelcomePage from "./components/WelcomePage";
 import Login from "./components/Login";
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./pages/UserProfile";
 import WeekTemplate from "./components/WeekTemplate";
-
-import "./App.css";
+import ProgramTemplate from "./pages/ProgramTemplate";
 
 function App() {
   const [userData, setUserData] = useState();
@@ -24,7 +23,7 @@ function App() {
 
   return (
     <div>
-      <Route exact path="/" component={WelcomePage} />
+      {/* <Route exact path="/" component={WelcomePage} /> */}
       <Route
         path="/login"
         render={props => <Login {...props} setUserData={setUserData} />}
@@ -37,6 +36,10 @@ function App() {
       <Route
         path="/user/:id/template"
         component={WeekTemplate}
+      />
+      <Route
+        path="/"
+        component={ProgramTemplate}
       />
     </div>
   );

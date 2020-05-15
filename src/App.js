@@ -38,6 +38,7 @@ function App() {
         component={WeekTemplate}
       />
       <Route
+        exact
         path="/"
         component={ProgramTemplate}
       />

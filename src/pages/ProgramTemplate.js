@@ -19,7 +19,7 @@ const Cell = styled.div`
 `
 
 const DaysCell = styled(Cell)`
-    width: 10rem;
+    width: 12rem;
     height: ${prop => prop.first === true && "3rem"};
 `
 
@@ -40,7 +40,6 @@ const mapTrainingPlan = (weeks) => {
             </CellsContainer>
         )
     }
-    console.log(trainingPlan)
     return trainingPlan
 }
 

@@ -5,14 +5,18 @@ import { DayTemplateContext } from "../contexts";
 
 Modal.setAppElement("#root");
 
-function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
-    const { handleSetExercises } = useContext(DayTemplateContext);
-  const [variables, setVariables] = useState({
+const initState = {
     duration: undefined,
     sets: undefined,
     reps: undefined,
-    weights: undefined
-  });
+    weights: undefined,
+    note: ""
+  }
+
+function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
+  const { handleSetExercises } = useContext(DayTemplateContext);
+  const [variables, setVariables] = useState(initState);
+  const [ displayNote, setDisplayNote ] = useState(false)
 
   const handleOnChange = e => {
     setVariables({ ...variables, [e.target.name]: e.target.value });
@@ -27,8 +31,14 @@ function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
       })
       setModal(false)
       handleSetExercises(newExercise)
+      setVariables(initState)
   }
 
+  const handleSetDisplayNote = () => {
+    setDisplayNote(!displayNote)
+    setVariables({ ...variables, note: "" });
+  }
+  console.log(variables.note)
   return (
     <Modal isOpen={modal}>
       <h2>{exercise.name}</h2>
@@ -98,6 +108,24 @@ function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
       ) : (
         <button name="weights" value={1} onClick={handleOnChange}>
           Set weights
+        </button>
+      )}
+      {displayNote ? (
+        <div>
+          <input
+            name="note"
+            type="text"
+            value={variables.note}
+            onChange={handleOnChange}
+            autoFocus
+          />
+          <button onClick={handleSetDisplayNote}>
+            x
+          </button>
+        </div>
+      ) : (
+        <button onClick={handleSetDisplayNote}>
+          Write note
         </button>
       )}
       <button onClick={handleAddExercise}>Add exercise</button>

@@ -60,17 +60,19 @@ const powerEndurancePhase = [c('wbl:60 min', lbc), rest, rest, c('wbl:50 min', l
 
 const performancePhase = [c('rp:pumpy routes', 'om:2 mod pitches'), rest, ,rest, c('wbl:40 min', int, se), rest, rest, c('rp:pumpy routes', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:pumpy routes', 'om:2mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, rest, c('wbl:45 min'), rest, rest, c('rp:on sight', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches')]
 
-const phases = baseFitnesssPhase + strengthPhase + powerPhase + powerEndurancePhase + performancePhase
-
-console.log(phases)
+const workouts = baseFitnesssPhase + strengthPhase + powerPhase + powerEndurancePhase + performancePhase
 
 const beginnerSport = {
-    baseFitnesss: 28,
-    strength: 21,
-    powerPhase: 15,
-    powerEndurance: 21,
-    performancePhase: 22,
-    phases
+    phases: {
+        baseFitnesss: 28,
+        strength: 21,
+        powerPhase: 15,
+        powerEndurance: 21,
+        performance: 22,
+        rest: 14
+    },
+    workouts,
+    weeks: 17
 }
 
 export default beginnerSport

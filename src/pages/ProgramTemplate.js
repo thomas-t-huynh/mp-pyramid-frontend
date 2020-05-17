@@ -3,8 +3,6 @@ import styled from "styled-components"
 
 import beginnerSport from "../assets/data/BeginnerSport"
 
-console.log(beginnerSport)
-
 const Container = styled.div`
 
 `
@@ -35,29 +33,45 @@ const WeekCell = styled(Cell)`
 
 const renderDayCell = (template) => {
     let trainingPlan = []
-    // const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-    // for (let i = 0; i < weeks; i++) {
-    //     trainingPlan.push(
-    //         <CellsContainer>
-    //             <WeekCell>{i + 1}</WeekCell>
-    //             {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
-    //         </CellsContainer>
-    //     )
-    // }
-    // return trainingPlan
-    for (const phase in template) {
-         trainingPlan.push(
+    const phases = Object.keys(template.phases)
+    let phaseIndex = 0
+    let currPhase = phases[phaseIndex]
+    let phaseCount = 0
+    const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+    for (let i = 0; i < template.weeks; i++) {
+        if (phaseCount >= template.phases[currPhase] && phaseIndex < phases.length) {
+            currPhase = template.phases[phaseIndex + 1]
+            phaseCount = 0
+        }
+        trainingPlan.push(
             <CellsContainer>
                 <WeekCell>{i + 1}</WeekCell>
-                {template[phase].map((day, i) => {
-                    <DaysCell key={i}></DaysCell>
-                })}
+                {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
             </CellsContainer>
         )
     }
+    return trainingPlan
+    // const weekPlan = (phase) => (
+    //     <CellsContainer>
+    //         <WeekCell>{i + 1}</WeekCell>
+    //         {template[phase].map((day, i) => {
+    //             return <DaysCell key={i}></DaysCell>
+    //         })}
+    //     </CellsContainer>
+    // )
+    // for (const phase in template.slice(0, template.length - 2)) {
+    //     const phaseLength = template[phase].length
+    //     const quotient = ~~(phaseLength / 7)
+    //     const remainder = phaseLength % 7
+    //     for (let i = 0; i < quotient; i++) {
+    //         trainingPlan.push(
+    //             weekPlan(phase)
+    //         )   
+    //     }
+
+
+    // }
 }
-
-
 
 function ProgramTemplate() {
     return (
@@ -72,7 +86,7 @@ function ProgramTemplate() {
                 <DaysCell first={true}>Friday</DaysCell>        
                 <DaysCell first={true}>Saturday</DaysCell>       
             </CellsContainer>
-            {renderDayCell(17).map(cells => cells)}
+            {renderDayCell(beginnerSport).map(cells => cells)}
         </Container>
     )
 }

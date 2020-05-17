@@ -1,6 +1,10 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 
+import beginnerSport from "../assets/data/BeginnerSport"
+
+console.log(beginnerSport)
+
 const Container = styled.div`
 
 `
@@ -29,19 +33,31 @@ const WeekCell = styled(Cell)`
     font-weight: 700;
 `
 
-const mapTrainingPlan = (weeks) => {
+const renderDayCell = (template) => {
     let trainingPlan = []
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-    for (let i = 0; i < weeks; i++) {
-        trainingPlan.push(
+    // const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+    // for (let i = 0; i < weeks; i++) {
+    //     trainingPlan.push(
+    //         <CellsContainer>
+    //             <WeekCell>{i + 1}</WeekCell>
+    //             {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
+    //         </CellsContainer>
+    //     )
+    // }
+    // return trainingPlan
+    for (const phase in template) {
+         trainingPlan.push(
             <CellsContainer>
                 <WeekCell>{i + 1}</WeekCell>
-                {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
+                {template[phase].map((day, i) => {
+                    <DaysCell key={i}></DaysCell>
+                })}
             </CellsContainer>
         )
     }
-    return trainingPlan
 }
+
+
 
 function ProgramTemplate() {
     return (
@@ -56,7 +72,7 @@ function ProgramTemplate() {
                 <DaysCell first={true}>Friday</DaysCell>        
                 <DaysCell first={true}>Saturday</DaysCell>       
             </CellsContainer>
-            {mapTrainingPlan(17).map(cells => cells)}
+            {renderDayCell(17).map(cells => cells)}
         </Container>
     )
 }

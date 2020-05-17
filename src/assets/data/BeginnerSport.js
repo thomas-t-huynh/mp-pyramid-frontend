@@ -1,54 +1,30 @@
-const om = {
-    name: 'OM'
- }
+const om = 'OM'
 
- const rest = {
-     name: ''
- }
 
- const arc = {
-     name: 'arc'
- }
+ const rest = 'rest'
 
- const oae = {
-     name: 'OAE'
- }
+ const arc = 'arc'
 
-const hb = {
-    name: 'hb'
-}
 
-const se = {
-    name: 'se'
-}
+ const oae = 'OAE'
 
-const wbl = {
-    name: 'wbl'
-}
+const hb = 'hb'
 
-const lb = {
-    name: 'lb'
-}
+const se = 'se'
 
-const campus = {
-    name: 'campus'
-}
+const wbl = 'wbl'
 
-const lbc = {
-    name: 'lbc'
-}
+const lb = 'lb'
 
-const rp = {
-    name: 'rp'
-}
+const campus = 'campus'
 
-const int = {
-    name: 'intervals'
-}
+const lbc = 'lbc'
 
-const os = {
-    name: 'rp/os'
-}
+const rp =  'rp'
+
+const int = 'intervals'
+
+const os = 'rp/os'
 
 function createTrainingObject () {
     let obj = {
@@ -70,8 +46,31 @@ function createTrainingObject () {
     return obj
 }
 
-console.log(createTrainingObject("key:value", "value"))
+// macros
+const c = createTrainingObject
+// console.log(c('arc:2 x 20 min'))
 
-const preset = [
-    []
-]
+const baseFitnesssPhase = [c('om:5 mod pitches'), c('om:4 mod pitches'), oae, c('arc:2 x 20 min'), oae, c('arc:2 x 25 min'), oae, c('om:7 mod pitches'), c('om:5 mod pitches'), oae, c('arc:2 x 30'), oae, c('arc:2 x 30 min'), oae, c('om:8 mod pitches'), c('om:6 mod pitches'), oae, c('arc:3 x 25 min'), c('arc:3 x 25 min'), c('arc:2 x 25 min'), oae, c('om: 10 mod pitches'), c('om: 8 mod pitches'), oae, c('arc:3 x 30 min'), c('arc:3 x 30 min'), c('arc:2 x 30 min'), oae ]
+
+const strengthPhase = [c(hb, se), om, oae, c(hb, se), arc, oae, c(hb, se), om, oae, c(hb, se), arc, oae, c(hb, se), arc, oae, c(hb, se), arc, rest, c(hb, se), rest, rest]
+
+const powerPhase = [c('wbl:60 min', 'campus:15 min'), rest, rest, c(lb, se), rest, c('wbl:60 min', 'campus:15 min'), rest, rest, c('lb:outdoors'), rest, c('wbl:60 min', 'campus:25 min',se), rest, rest, c('lb:90 min', se), rest]
+
+const powerEndurancePhase = [c('wbl:60 min', lbc), rest, rest, c('wbl:50 min', lbc, se), rest, rest, c(rp), c(rp), rest, rest, c('wbl:50 min', lbc), rest, rest, c(rp, 'om:2 mod pitches'), c(rp, 'om:2 mod pitches'), rest, rest, c('wbl:40 min', int, se), rest, rest, c(rp, 'om:2 mod pitches') ]
+
+const performancePhase = [c('rp:pumpy routes', 'om:2 mod pitches'), rest, ,rest, c('wbl:40 min', int, se), rest, rest, c('rp:pumpy routes', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:pumpy routes', 'om:2mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, rest, c('wbl:45 min'), rest, rest, c('rp:on sight', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches')]
+
+const phases = baseFitnesssPhase + strengthPhase + powerPhase + powerEndurancePhase + performancePhase
+
+console.log(phases)
+
+const beginnerSport = {
+    baseFitnesss: 28,
+    strength: 21,
+    powerPhase: 15,
+    powerEndurance: 21,
+    performancePhase: 22,
+    phases
+}
+
+export default beginnerSport

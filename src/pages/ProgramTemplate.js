@@ -30,14 +30,21 @@ const WeekCell = styled(Cell)`
     height: ${prop => prop.first === true && "3rem"};
     font-weight: 700;
 `
-
 const renderDayCell = (template) => {
     let trainingPlan = []
     const phases = Object.keys(template.phases)
     let phaseIndex = 0
+    let index = -1
     let currPhase = phases[phaseIndex]
     let phaseCount = 0
     const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+    function getMainWorkout() {
+        index++
+        if (typeof template.workouts[index] === "string") {
+            return template.workouts[index]
+        }
+        return template.workouts[index].exercisesOrder[0]
+    }
     for (let i = 0; i < template.weeks; i++) {
         if (phaseCount >= template.phases[currPhase] && phaseIndex < phases.length) {
             currPhase = template.phases[phaseIndex + 1]
@@ -46,9 +53,10 @@ const renderDayCell = (template) => {
         trainingPlan.push(
             <CellsContainer>
                 <WeekCell>{i + 1}</WeekCell>
-                {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
+                {days.map((day, i) => <DaysCell key={i}>{getMainWorkout()}</DaysCell>)}
             </CellsContainer>
         )
+        
     }
     return trainingPlan
     // const weekPlan = (phase) => (

@@ -58,9 +58,19 @@ const powerPhase = [c('wbl:60 min', 'campus:15 min'), rest, rest, c(lb, se), res
 
 const powerEndurancePhase = [c('wbl:60 min', lbc), rest, rest, c('wbl:50 min', lbc, se), rest, rest, c(rp), c(rp), rest, rest, c('wbl:50 min', lbc), rest, rest, c(rp, 'om:2 mod pitches'), c(rp, 'om:2 mod pitches'), rest, rest, c('wbl:40 min', int, se), rest, rest, c(rp, 'om:2 mod pitches') ]
 
-const performancePhase = [c('rp:pumpy routes', 'om:2 mod pitches'), rest, ,rest, c('wbl:40 min', int, se), rest, rest, c('rp:pumpy routes', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:pumpy routes', 'om:2mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, rest, c('wbl:45 min'), rest, rest, c('rp:on sight', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches')]
+const performancePhase = [c('rp:pumpy routes', 'om:2 mod pitches'), rest, rest, c('wbl:40 min', int, se), rest, rest, c('rp:pumpy routes', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:pumpy routes', 'om:2mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, c('rp:on sight', 'om:2 mod pitches'), rest, rest, c('wbl:45 min'), rest, rest, c('rp:on sight', 'om:2 mod pitches'), c('rp:on sight', 'om:2 mod pitches')]
 
-const workouts = baseFitnesssPhase + strengthPhase + powerPhase + powerEndurancePhase + performancePhase
+function restDays(days) {
+    const restDays = []
+    for (var i = 0; i < days; i++) {
+        restDays.push(rest)
+    }
+    return restDays
+}
+
+const restPhase = restDays(14)
+
+const workouts = [...baseFitnesssPhase, ...strengthPhase, ...powerPhase, ...powerEndurancePhase, ...performancePhase, ...restPhase]
 
 const beginnerSport = {
     phases: {

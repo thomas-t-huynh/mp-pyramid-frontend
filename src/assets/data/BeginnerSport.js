@@ -74,9 +74,9 @@ const workouts = [...baseFitnesssPhase, ...strengthPhase, ...powerPhase, ...powe
 
 const beginnerSport = {
     phases: {
-        baseFitnesss: 28,
+        baseFitness: 28,
         strength: 21,
-        powerPhase: 15,
+        power: 15,
         powerEndurance: 21,
         performance: 22,
         rest: 14

@@ -23,6 +23,14 @@ const Cell = styled.div`
 const DaysCell = styled(Cell)`
     width: 12rem;
     height: ${prop => prop.first === true && "3rem"};
+    background: ${prop => {
+        if (prop.phase === 'baseFitness') { return 'lavender' } 
+        if (prop.phase === 'strength') { return 'mediumorchid' }
+        if (prop.phase === 'power') { return 'darkslateblue' }
+        if (prop.phase === 'powerEndurance') { return 'salmon' }
+        if (prop.phase === 'performance') { return 'seashell' }
+        if (prop.phase === 'rest') { return 'palegreen' }
+    }};
 `
 
 const WeekCell = styled(Cell)`
@@ -30,60 +38,53 @@ const WeekCell = styled(Cell)`
     height: ${prop => prop.first === true && "3rem"};
     font-weight: 700;
 `
-const renderDayCell = (template) => {
-    let trainingPlan = []
-    const phases = Object.keys(template.phases)
-    let phaseIndex = 0
-    let index = -1
-    let currPhase = phases[phaseIndex]
-    let phaseCount = 0
-    const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-    function getMainWorkout() {
-        index++
-        if (typeof template.workouts[index] === "string") {
-            return template.workouts[index]
-        }
-        return template.workouts[index].exercisesOrder[0]
-    }
-    for (let i = 0; i < template.weeks; i++) {
-        if (phaseCount >= template.phases[currPhase] && phaseIndex < phases.length) {
-            currPhase = template.phases[phaseIndex + 1]
-            phaseCount = 0
-        }
-        trainingPlan.push(
-            <CellsContainer>
-                <WeekCell>{i + 1}</WeekCell>
-                {days.map((day, i) => <DaysCell key={i}>{getMainWorkout()}</DaysCell>)}
-            </CellsContainer>
-        )
-        
-    }
-    return trainingPlan
-    // const weekPlan = (phase) => (
-    //     <CellsContainer>
-    //         <WeekCell>{i + 1}</WeekCell>
-    //         {template[phase].map((day, i) => {
-    //             return <DaysCell key={i}></DaysCell>
-    //         })}
-    //     </CellsContainer>
-    // )
-    // for (const phase in template.slice(0, template.length - 2)) {
-    //     const phaseLength = template[phase].length
-    //     const quotient = ~~(phaseLength / 7)
-    //     const remainder = phaseLength % 7
-    //     for (let i = 0; i < quotient; i++) {
-    //         trainingPlan.push(
-    //             weekPlan(phase)
-    //         )   
-    //     }
-
-
-    // }
-}
 
 function ProgramTemplate() {
+    const [template, setTemplate] = useState()
+
+    const mapProgram = (template) => {
+        let trainingPlan = []
+        const phases = Object.keys(template.phases)
+        let phaseIndex = 0
+        let index = -1
+        let currPhase = phases[phaseIndex]
+        let phaseCount = 0
+        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+        function getMainWorkout() {
+            index++
+            phaseCount++
+            if (phaseCount >= template.phases[currPhase] && phaseIndex < phases.length) {
+                phaseIndex++
+                currPhase = phases[phaseIndex]
+                
+                phaseCount = 0
+            }
+            const workout = template.workouts[index]
+            if (typeof workout === "string") {
+                return workout
+            }
+            return workout.exercisesOrder[0]
+        }
+        for (let i = 0; i < template.weeks; i++) {                 
+            trainingPlan.push(
+                <CellsContainer key={i}>
+                    <WeekCell>{i + 1}</WeekCell>
+                    {days.map
+                    ((day, i) => <DaysCell phase={currPhase} key={i}>{getMainWorkout()}</DaysCell>)}
+                </CellsContainer>
+            )
+            
+        }
+        return trainingPlan
+    }
+
     return (
         <Container>
+            <h1>Predefined Templates</h1>
+            <button onClick={() => setTemplate(beginnerSport)}>Beginner Sport</button>
+            <button onClick={() => setTemplate()}>
+                None
+            </button>
             <CellsContainer>
                 <WeekCell first={true}>Week</WeekCell>        
                 <DaysCell first={true}>Sunday</DaysCell>        
@@ -94,7 +95,7 @@ function ProgramTemplate() {
                 <DaysCell first={true}>Friday</DaysCell>        
                 <DaysCell first={true}>Saturday</DaysCell>       
             </CellsContainer>
-            {renderDayCell(beginnerSport).map(cells => cells)}
+            {template && mapProgram(template).map(cells => cells)}
         </Container>
     )
 }

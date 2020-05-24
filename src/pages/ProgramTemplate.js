@@ -44,12 +44,23 @@ function ProgramTemplate() {
 
     const mapProgram = (template) => {
         let trainingPlan = []
+        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+        if (!template) {
+            for (let i = 0; i < 17; i++) {                 
+                trainingPlan.push(
+                    <CellsContainer key={i}>
+                        <WeekCell>{i + 1}</WeekCell>
+                        {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
+                    </CellsContainer>
+                )
+            }
+            return trainingPlan
+        }
         const phases = Object.keys(template.phases)
         let phaseIndex = 0
         let index = -1
         let currPhase = phases[phaseIndex]
         let phaseCount = 0
-        const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
         function getMainWorkout() {
             index++
             phaseCount++
@@ -69,8 +80,7 @@ function ProgramTemplate() {
             trainingPlan.push(
                 <CellsContainer key={i}>
                     <WeekCell>{i + 1}</WeekCell>
-                    {days.map
-                    ((day, i) => <DaysCell phase={currPhase} key={i}>{getMainWorkout()}</DaysCell>)}
+                    {days.map((day, i) => <DaysCell phase={currPhase} key={i}>{template ? getMainWorkout() : undefined}</DaysCell>)}
                 </CellsContainer>
             )
             
@@ -95,7 +105,7 @@ function ProgramTemplate() {
                 <DaysCell first={true}>Friday</DaysCell>        
                 <DaysCell first={true}>Saturday</DaysCell>       
             </CellsContainer>
-            {template && mapProgram(template).map(cells => cells)}
+            {mapProgram(template).map(cells => cells)}
         </Container>
     )
 }

@@ -23,6 +23,7 @@ const Cell = styled.div`
 const DaysCell = styled(Cell)`
     width: 12rem;
     height: ${prop => prop.first === true && "3rem"};
+    cursor: pointer;
     background: ${prop => {
         if (prop.phase === 'baseFitness') { return 'lavender' } 
         if (prop.phase === 'strength') { return 'mediumorchid' }
@@ -38,10 +39,10 @@ const WeekCell = styled(Cell)`
     height: ${prop => prop.first === true && "3rem"};
     font-weight: 700;
 `
-
+console.log(beginnerSport)
 function ProgramTemplate() {
     const [template, setTemplate] = useState()
-
+    
     const mapProgram = (template) => {
         let trainingPlan = []
         const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -56,31 +57,20 @@ function ProgramTemplate() {
             }
             return trainingPlan
         }
-        const phases = Object.keys(template.phases)
-        let phaseIndex = 0
-        let index = -1
-        let currPhase = phases[phaseIndex]
-        let phaseCount = 0
+        let index = 0
         function getMainWorkout() {
+            const currIndex = index
             index++
-            phaseCount++
-            if (phaseCount >= template.phases[currPhase] && phaseIndex < phases.length) {
-                phaseIndex++
-                currPhase = phases[phaseIndex]
-                
-                phaseCount = 0
-            }
-            const workout = template.workouts[index]
-            if (typeof workout === "string") {
-                return workout
-            }
-            return workout.exercisesOrder[0]
+            return template[currIndex].exercisesOrder[0]
+            
         }
-        for (let i = 0; i < template.weeks; i++) {                 
+        const weeks = ~~(template.length/7)
+
+        for (let i = 0; i < weeks; i++) {                 
             trainingPlan.push(
                 <CellsContainer key={i}>
                     <WeekCell>{i + 1}</WeekCell>
-                    {days.map((day, i) => <DaysCell phase={currPhase} key={i}>{template ? getMainWorkout() : undefined}</DaysCell>)}
+                    {days.map((day, i) => <DaysCell phase={template[index].name} key={i}>{getMainWorkout()}</DaysCell>)}
                 </CellsContainer>
             )
             

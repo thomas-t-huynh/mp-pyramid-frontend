@@ -72,25 +72,34 @@ const restPhase = restDays(14)
 
 const concatPhases = [...baseFitnesssPhase, ...strengthPhase, ...powerPhase, ...powerEndurancePhase, ...performancePhase, ...restPhase]
 
-const workouts = concatPhases.map(day => {
-    if (typeof day === "string") {
-        return createTrainingObject(day)
-    }
-    return day
-})
-
-console.log(workouts)
-const beginnerSport = {
-    phases: {
-        baseFitness: 28,
-        strength: 21,
-        power: 15,
-        powerEndurance: 21,
-        performance: 22,
-        rest: 14
-    },
-    workouts,
-    weeks: 17
+const phases = {
+    baseFitness: 28,
+    strength: 21,
+    power: 15,
+    powerEndurance: 21,
+    performance: 22,
+    rest: 14
 }
 
+const workouts = () => {
+    const phasesArr = Object.keys(phases)
+    let phaseIndex = 0
+    let index = 0
+    return concatPhases.map((day) => {
+        index++
+        if (index >= phases[phasesArr[phaseIndex]]) { 
+            phaseIndex++
+            index = 0
+        }
+        if (typeof day === "string") {
+            const trainingObj = createTrainingObject(day)
+            trainingObj.name = phasesArr[phaseIndex]
+            return trainingObj
+        }
+        day.name = phasesArr[phaseIndex]
+        return day
+        }   
+    )
+}
+const beginnerSport = workouts
 export default beginnerSport

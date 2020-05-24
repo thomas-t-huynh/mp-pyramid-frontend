@@ -70,8 +70,16 @@ function restDays(days) {
 
 const restPhase = restDays(14)
 
-const workouts = [...baseFitnesssPhase, ...strengthPhase, ...powerPhase, ...powerEndurancePhase, ...performancePhase, ...restPhase]
+const concatPhases = [...baseFitnesssPhase, ...strengthPhase, ...powerPhase, ...powerEndurancePhase, ...performancePhase, ...restPhase]
 
+const workouts = concatPhases.map(day => {
+    if (typeof day === "string") {
+        return createTrainingObject(day)
+    }
+    return day
+})
+
+console.log(workouts)
 const beginnerSport = {
     phases: {
         baseFitness: 28,

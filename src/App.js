@@ -6,6 +6,7 @@ import WelcomePage from "./components/WelcomePage";
 import Login from "./components/Login";
 import UserProfile from "./pages/UserProfile";
 import WeekTemplate from "./components/WeekTemplate";
+import DayTemplate from "./components/DayTemplate";
 import ProgramTemplate from "./pages/ProgramTemplate";
 
 function App() {
@@ -34,8 +35,8 @@ function App() {
         render={props => <UserProfile {...props} userData={userData} />}
       />
       <Route
-        path="/user/:id/template"
-        component={WeekTemplate}
+        path="/template"
+        component={DayTemplate}
       />
       <Route
         exact

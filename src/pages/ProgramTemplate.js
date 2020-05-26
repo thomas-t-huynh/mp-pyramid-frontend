@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-
+import { Link } from "react-router-dom"
 import beginnerSport from "../assets/data/BeginnerSport"
 
 const Container = styled.div`
@@ -51,7 +51,7 @@ function ProgramTemplate() {
                 trainingPlan.push(
                     <CellsContainer key={i}>
                         <WeekCell>{i + 1}</WeekCell>
-                        {days.map((day, i) => <DaysCell key={i}></DaysCell>)}
+                        {days.map((day, i) => <Link to="/template"><DaysCell key={i}></DaysCell></Link>)}
                     </CellsContainer>
                 )
             }

@@ -21,13 +21,12 @@ const dummyData = {
   exercisesOrder: []
 }
 
-function DayTemplate({ setWeekTemplate, weekTemplate }) {
+function DayTemplate() {
   const [ dayTemplate, setDayTemplate ] = useState(dummyData);
   const [ error, setError ] = useState()
   const [ edit, setEdit ] = useState(false)
   const handleSetExercises = exercise => {
     setDayTemplate({...dayTemplate, exercises: {...dayTemplate.exercises, [exercise.name]: exercise }, exercisesOrder: [...dayTemplate.exercisesOrder, exercise.name] });
-
   };
 
   const onDragEnd = result => {
@@ -56,17 +55,6 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
     setDayTemplate({...dayTemplate, [e.target.name]: e.target.value })
   }
 
-  const handleSetWeekTemplate = () => {
-    for (const prop in dayTemplate) {
-      if (dayTemplate[prop] === initDayTemplate[prop]) {
-        return setError("Please enter in all values for the template")
-      }
-    }
-    const intTime = parseInt(dayTemplate.time.replace(":", ""))
-    setError("")
-    setWeekTemplate( { ...weekTemplate, [dayTemplate.day]: { ...weekTemplate[dayTemplate.day], sessions: [ ...weekTemplate[dayTemplate.day].sessions, {...dayTemplate, intTime } ]}} )
-    setDayTemplate(dummyData)
-  }
 
   const handleSetEdit = template => {
     setDayTemplate(template)
@@ -106,7 +94,7 @@ function DayTemplate({ setWeekTemplate, weekTemplate }) {
       </select>
       <input type="time" name="time" onChange={handleOnChange} value={dayTemplate.time}/>
       <input type="text" name="name" onChange={handleOnChange} value={dayTemplate.name} />
-      <button onClick={() => handleSetWeekTemplate()}>Set day's exercise</button>
+      <button>Set day's exercise</button>
       <DayTemplateContext.Provider value={{ handleSetExercises, handleSetEdit }}>
         <SearchExercise />
       </DayTemplateContext.Provider>

@@ -11,7 +11,8 @@ import ProgramTemplate from "./pages/ProgramTemplate";
 
 function App() {
   const [userData, setUserData] = useState();
-
+  const [selectedWorkout, setSelectedWorkout] = useState()
+  console.log(selectedWorkout)
   // Auto login for development purposes
   useEffect(() => {
     axios
@@ -36,12 +37,12 @@ function App() {
       />
       <Route
         path="/template"
-        component={DayTemplate}
+        component={() => <DayTemplate selectedWorkout={selectedWorkout}/>}
       />
       <Route
         exact
         path="/"
-        component={ProgramTemplate}
+        component={() => <ProgramTemplate setSelectedWorkout={setSelectedWorkout} />}
       />
     </div>
   );

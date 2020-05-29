@@ -20,6 +20,11 @@ const Cell = styled.div`
     height: 5rem;
 `
 
+const StyledLink = styled(Link)`
+    color: black;
+    text-decoration: none;
+`
+
 const DaysCell = styled(Cell)`
     width: 12rem;
     height: ${prop => prop.first === true && "3rem"};
@@ -32,6 +37,9 @@ const DaysCell = styled(Cell)`
         if (prop.phase === 'performance') { return 'seashell' }
         if (prop.phase === 'rest') { return 'palegreen' }
     }};
+    &:hover {
+        background: yellow;
+    }
 `
 
 const WeekCell = styled(Cell)`
@@ -39,8 +47,7 @@ const WeekCell = styled(Cell)`
     height: ${prop => prop.first === true && "3rem"};
     font-weight: 700;
 `
-console.log(beginnerSport)
-function ProgramTemplate() {
+function ProgramTemplate({ setSelectedWorkout }) {
     const [template, setTemplate] = useState()
     
     const mapProgram = (template) => {
@@ -51,7 +58,7 @@ function ProgramTemplate() {
                 trainingPlan.push(
                     <CellsContainer key={i}>
                         <WeekCell>{i + 1}</WeekCell>
-                        {days.map((day, i) => <Link to="/template"><DaysCell key={i}></DaysCell></Link>)}
+                        {days.map((day, i) => <StyledLink onClick={() => setSelectedWorkout()} key={i} to="/template"><DaysCell></DaysCell></StyledLink>)}
                     </CellsContainer>
                 )
             }
@@ -62,15 +69,20 @@ function ProgramTemplate() {
             const currIndex = index
             index++
             return template[currIndex].exercisesOrder[0]
-            
         }
         const weeks = ~~(template.length/7)
-
         for (let i = 0; i < weeks; i++) {                 
             trainingPlan.push(
                 <CellsContainer key={i}>
                     <WeekCell>{i + 1}</WeekCell>
-                    {days.map((day, i) => <DaysCell phase={template[index].name} key={i}>{getMainWorkout()}</DaysCell>)}
+                    {days.map((day, i) => {
+                        const workout = template[index]
+                        return (
+                            <StyledLink key={i} onClick={() => setSelectedWorkout(workout)} to="/template">
+                                <DaysCell phase={workout.name} >{getMainWorkout()}</DaysCell>
+                            </StyledLink>
+                        )
+                    })}
                 </CellsContainer>
             )
             

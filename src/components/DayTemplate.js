@@ -21,8 +21,8 @@ const dummyData = {
   exercisesOrder: []
 }
 
-function DayTemplate() {
-  const [ dayTemplate, setDayTemplate ] = useState(dummyData);
+function DayTemplate({ selectedWorkout }) {
+  const [ dayTemplate, setDayTemplate ] = useState(selectedWorkout ? selectedWorkout : dummyData);
   const [ error, setError ] = useState()
   const [ edit, setEdit ] = useState(false)
   const handleSetExercises = exercise => {

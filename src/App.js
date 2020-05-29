@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import axios from "axios";
 
-import WelcomePage from "./components/WelcomePage";
 import Login from "./components/Login";
 import UserProfile from "./pages/UserProfile";
-import WeekTemplate from "./components/WeekTemplate";
 import DayTemplate from "./components/DayTemplate";
 import ProgramTemplate from "./pages/ProgramTemplate";
+
+import beginnerSport from "./assets/data/BeginnerSport"
 
 function App() {
   const [userData, setUserData] = useState();
   const [selectedWorkout, setSelectedWorkout] = useState()
-  const [template, setTemplate] = useState()
+  const [template, setTemplate] = useState(beginnerSport)
   // Auto login for development purposes
   useEffect(() => {
     axios
@@ -37,7 +37,7 @@ function App() {
       />
       <Route
         path="/template"
-        component={() => <DayTemplate selectedWorkout={selectedWorkout}/>}
+        component={(props) => <DayTemplate {...props} template={template} setTemplate={setTemplate} selectedWorkout={selectedWorkout}/>}
       />
       <Route
         exact

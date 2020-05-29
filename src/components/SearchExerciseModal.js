@@ -38,7 +38,6 @@ function SearchExerciseModal({ modal, setModal, exercise, setExercise }) {
     setDisplayNote(!displayNote)
     setVariables({ ...variables, note: "" });
   }
-  console.log(variables.note)
   return (
     <Modal isOpen={modal}>
       <h2>{exercise.name}</h2>

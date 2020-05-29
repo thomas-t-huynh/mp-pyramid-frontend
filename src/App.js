@@ -12,7 +12,7 @@ import ProgramTemplate from "./pages/ProgramTemplate";
 function App() {
   const [userData, setUserData] = useState();
   const [selectedWorkout, setSelectedWorkout] = useState()
-  console.log(selectedWorkout)
+  const [template, setTemplate] = useState()
   // Auto login for development purposes
   useEffect(() => {
     axios
@@ -42,7 +42,7 @@ function App() {
       <Route
         exact
         path="/"
-        component={() => <ProgramTemplate setSelectedWorkout={setSelectedWorkout} />}
+        component={() => <ProgramTemplate template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} />}
       />
     </div>
   );

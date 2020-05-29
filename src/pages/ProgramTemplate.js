@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
@@ -47,8 +48,7 @@ const WeekCell = styled(Cell)`
     height: ${prop => prop.first === true && "3rem"};
     font-weight: 700;
 `
-function ProgramTemplate({ setSelectedWorkout }) {
-    const [template, setTemplate] = useState()
+function ProgramTemplate({ setSelectedWorkout, template, setTemplate }) {
     
     const mapProgram = (template) => {
         let trainingPlan = []

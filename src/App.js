@@ -8,11 +8,13 @@ import DayTemplate from "./components/DayTemplate";
 import ProgramTemplate from "./pages/ProgramTemplate";
 
 import beginnerSport from "./assets/data/BeginnerSport"
+import emptyTemplate from "./assets/data/EmptyTemplate"
+
 
 function App() {
   const [userData, setUserData] = useState();
   const [selectedWorkout, setSelectedWorkout] = useState()
-  const [template, setTemplate] = useState(beginnerSport)
+  const [template, setTemplate] = useState(emptyTemplate)
   // Auto login for development purposes
   useEffect(() => {
     axios

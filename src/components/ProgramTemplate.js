@@ -1,9 +1,7 @@
 /* eslint-disable no-loop-func */
-import React, { useState } from "react"
+import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
-import beginnerSport from "../assets/data/BeginnerSport"
-import emptyTemplate from "../assets/data/EmptyTemplate"
 
 const Container = styled.div`
 
@@ -58,29 +56,11 @@ const WeekCell = styled(Cell)`
     font-weight: 700;
 `
 
-const emptyDayTemplate = {
-  name: "",
-  day: "",
-  time: "",
-  exercises: {},
-  exercisesOrder: []
-}
-
-function ProgramTemplate({ setSelectedWorkout, template, setTemplate }) {
+function ProgramTemplate({ setSelectedWorkout, template }) {
+    console.log(template)
     const mapProgram = (template) => {
         let trainingPlan = []
         const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-        // if (!template) {
-        //     for (let i = 0; i < 17; i++) {                 
-        //         trainingPlan.push(
-        //             <CellsContainer key={i}>
-        //                 <WeekCell>{i + 1}</WeekCell>
-        //                 {days.map((day, j) => <StyledLink onClick={() => setSelectedWorkout({...emptyDayTemplate, index: ((i * 7) + j) })} key={j} to="/template"><DaysCell></DaysCell></StyledLink>)}
-        //             </CellsContainer>
-        //         )
-        //     }
-        //     return trainingPlan
-        // }
         function getMainWorkout(index) {
             const mainWorkouts = []
             for (const workout of template[index].exercisesOrder) {
@@ -110,11 +90,6 @@ function ProgramTemplate({ setSelectedWorkout, template, setTemplate }) {
 
     return (
         <Container>
-            <h1>Predefined Templates</h1>
-            <button onClick={() => setTemplate(beginnerSport)}>Beginner Sport</button>
-            <button onClick={() => setTemplate(emptyTemplate)}>
-                None
-            </button>
             <CellsContainer>
                 <WeekCell first={true}>Week</WeekCell>        
                 <NameDaysCell first={true}>Sunday</NameDaysCell>        

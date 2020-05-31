@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const om = 'OM'
 
 const rest = 'rest'
@@ -28,7 +30,7 @@ function createTrainingObject () {
     let obj = {
         name: "",
         day: "",
-        time: "",
+        date: "",
         exercises: {},
         exercisesOrder: []
     }
@@ -83,7 +85,7 @@ const workouts = () => {
     const phasesArr = Object.keys(phases)
     let phaseIndex = 0
     let index = 0
-    return concatPhases.map((day) => {
+    return concatPhases.map((day, i) => {
         index++
         if (index >= phases[phasesArr[phaseIndex]]) { 
             phaseIndex++
@@ -92,6 +94,7 @@ const workouts = () => {
         if (typeof day === "string") {
             const trainingObj = createTrainingObject(day)
             trainingObj.name = phasesArr[phaseIndex]
+            // trainingObj.date = 
             return trainingObj
         }
         day.name = phasesArr[phaseIndex]

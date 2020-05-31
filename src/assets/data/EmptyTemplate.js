@@ -1,15 +1,17 @@
-let emptyTempalte = []
+import moment from "moment";
 
-let emptyDay = {
-    name: "",
-    day: "",
-    time: "",
-    exercises: {},
-    exercisesOrder: []
-}
+let emptyTemplate = []
 
 for (var i = 0; i < (17*7); i++) {
-    emptyTempalte.push(emptyDay)
+    const day = {
+        name: "",
+        day: "",
+        date: "",
+        exercises: {},
+        exercisesOrder: []
+    }
+    day.date =  moment().add(i, 'days').format('L')
+    emptyTemplate.push(day)
 }
 
-export default emptyTempalte;
+export default emptyTemplate;

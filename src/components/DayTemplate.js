@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Droppable, DragDropContext } from "react-beautiful-dnd";
+import moment from "moment";
 
 import SearchExercise from "./SearchExercise";
 import Exercise from "./Exercise";
@@ -8,7 +9,7 @@ import { DayTemplateContext } from "../contexts";
 const initDayTemplate = {
   name: "",
   day: "",
-  time: "",
+  date: moment().format('L'),
   exercises: {},
   exercisesOrder: []
 }
@@ -16,7 +17,7 @@ const initDayTemplate = {
 const dummyData = {
   name: "ARC",
   day: "sun",
-  time: "10:00",
+  date: "5/31/2020",
   exercises: {},
   exercisesOrder: []
 }
@@ -64,7 +65,7 @@ function DayTemplate({ selectedWorkout, template, setTemplate, history }) {
     newTemplate[dayTemplate.index] = dayTemplate
     delete newTemplate[dayTemplate.index].index
     setTemplate(newTemplate)
-    history.push('/')
+    history.goBack() 
   }
 
   return (
@@ -98,7 +99,7 @@ function DayTemplate({ selectedWorkout, template, setTemplate, history }) {
         <option value="fri">Friday</option>
         <option value="sat">Saturday</option>
       </select>
-      <input type="time" name="time" onChange={handleOnChange} value={dayTemplate.time}/>
+      <label>Day name</label>
       <input type="text" name="name" onChange={handleOnChange} value={dayTemplate.name} />
       <button onClick={() => handleSetTemplate()}>Set day's exercise</button>
       <DayTemplateContext.Provider value={{ handleSetExercises, handleSetEdit }}>

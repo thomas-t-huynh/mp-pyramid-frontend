@@ -5,11 +5,10 @@ import axios from "axios";
 import Login from "./components/Login";
 import UserProfile from "./pages/UserProfile";
 import DayTemplate from "./components/DayTemplate";
-import ProgramTemplate from "./pages/ProgramTemplate";
+import SetTemplate from "./pages/SetTemplate"
+import UserTemplate from "./pages/UserTemplate"
 
-import beginnerSport from "./assets/data/BeginnerSport"
 import emptyTemplate from "./assets/data/EmptyTemplate"
-
 
 function App() {
   const [userData, setUserData] = useState();
@@ -34,17 +33,21 @@ function App() {
       />
       <Route
         exact
-        path="/user/:id"
+        path="/user"
         render={props => <UserProfile {...props} userData={userData} />}
       />
       <Route
         path="/template"
-        component={(props) => <DayTemplate {...props} template={template} setTemplate={setTemplate} selectedWorkout={selectedWorkout}/>}
+        component={props => <DayTemplate {...props} template={template} setTemplate={setTemplate} selectedWorkout={selectedWorkout}/>}
       />
       <Route
         exact
         path="/"
-        component={() => <ProgramTemplate template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} />}
+        component={props => <SetTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} />}
+      />
+      <Route
+        path="/user/template"
+        component={props => <UserTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout}/>}
       />
     </div>
   );

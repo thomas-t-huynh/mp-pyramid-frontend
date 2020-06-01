@@ -2,6 +2,7 @@
 import React from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
+import moment from "moment"
 
 const Container = styled.div`
 
@@ -57,10 +58,14 @@ const WeekCell = styled(Cell)`
 `
 
 function ProgramTemplate({ setSelectedWorkout, template }) {
-    console.log(template)
     const mapProgram = (template) => {
         let trainingPlan = []
         const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+        const date = moment()
+        if (date.day() !== 0) {
+            date.add(7 - date.day(), 'days')
+        }
+        date.subtract(1, 'days')
         function getMainWorkout(index) {
             const mainWorkouts = []
             for (const workout of template[index].exercisesOrder) {
@@ -75,6 +80,8 @@ function ProgramTemplate({ setSelectedWorkout, template }) {
                     <WeekCell>{i + 1}</WeekCell>
                     {days.map((day, j) => {
                         const currIndex = ((i * 7) + j)
+                        date.add(1, 'days')
+                        template[currIndex].date = date.format('L')
                         return (
                             <StyledLink key={j} onClick={() => setSelectedWorkout({ ...template[currIndex], index: currIndex })} to="/template">
                                 <DaysCell phase={template[currIndex].name} >{getMainWorkout(currIndex).map((workout, k) => <li key={k}>{workout}</li>)}</DaysCell>
@@ -87,7 +94,7 @@ function ProgramTemplate({ setSelectedWorkout, template }) {
         }
         return trainingPlan
     }
-
+    console.log(template)
     return (
         <Container>
             <CellsContainer>

@@ -53,11 +53,14 @@ const DaysCell = styled(Cell)`
 
 const WeekCell = styled(Cell)`
     width: 5rem;
-    height: ${prop => prop.first === true && "3rem"};
+    height: ${prop => prop.first && "3rem"};
     font-weight: 700;
+    &:hover {
+        background: ${prop => !prop.first && 'mediumseagreen'};
+    }
 `
 
-function ProgramTemplate({ setSelectedWorkout, template }) {
+function ProgramTemplate({ setSelectedWorkout, template, setSelectedWeek }) {
     const mapProgram = (template) => {
         let trainingPlan = []
         const days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -77,13 +80,13 @@ function ProgramTemplate({ setSelectedWorkout, template }) {
         for (let i = 0; i < weeks; i++) {                 
             trainingPlan.push(
                 <CellsContainer key={i}>
-                    <WeekCell>{i + 1}</WeekCell>
+                    <StyledLink to="/template/week" onClick={() => setSelectedWeek(template.slice(i * 7, i * 7 + 7))} ><WeekCell>{i + 1}</WeekCell></StyledLink>
                     {days.map((day, j) => {
                         const currIndex = ((i * 7) + j)
                         date.add(1, 'days')
                         template[currIndex].date = date.format('L')
                         return (
-                            <StyledLink key={j} onClick={() => setSelectedWorkout({ ...template[currIndex], index: currIndex })} to="/template">
+                            <StyledLink key={j} onClick={() => setSelectedWorkout({ ...template[currIndex], index: currIndex })} to="/template/day">
                                 <DaysCell phase={template[currIndex].name} >{getMainWorkout(currIndex).map((workout, k) => <li key={k}>{workout}</li>)}</DaysCell>
                             </StyledLink>
                         )
@@ -94,7 +97,6 @@ function ProgramTemplate({ setSelectedWorkout, template }) {
         }
         return trainingPlan
     }
-    console.log(template)
     return (
         <Container>
             <CellsContainer>

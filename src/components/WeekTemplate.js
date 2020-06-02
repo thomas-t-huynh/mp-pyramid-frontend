@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-import * as workouts from "../assets/data/workouts.json";
-import DayTemplate from "./DayTemplate";
 import DayCard from './DayCard'
 import WeekTemplateContext from "../contexts";
 
-function WeekTemplate() {
-    const [weekTemplate, setWeekTemplate] = useState({
-        sun: { name: "Sunday", sessions: [] },
-        mon: { name: "Monday", sessions: []},
-        tue: { name: "Tuesday", sessions: [] },
-        wed: { name: "Wednesday", sessions: [] },
-        thu: { name: "Thursday", sessions: [] },
-        fri: { name: "Friday", sessions: [] },
-        sat: { name: "Saturday", sessions: [] }
-    })
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+
+function WeekTemplate({ selectedWeek }) {
+    const [weekTemplate, setWeekTemplate] = useState(selectedWeek ? selectedWeek : undefined)
     console.log(weekTemplate)
     return (
         <div>
-            {Object.keys(weekTemplate).map((day, i) => <DayCard key={i} day={weekTemplate[day]}/>)}
-            <DayTemplate weekTemplate={weekTemplate} setWeekTemplate={setWeekTemplate} />
+            {weekTemplate && days.map((dayName, i) => <DayCard key={i} dayName={dayName} day={weekTemplate[i]}/>)}
         </div>
     )
 }

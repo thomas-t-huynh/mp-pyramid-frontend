@@ -5,14 +5,16 @@ import axios from "axios";
 import Login from "./components/Login";
 import UserProfile from "./pages/UserProfile";
 import DayTemplate from "./components/DayTemplate";
+import WeekTemplate from "./components/WeekTemplate"
 import SetTemplate from "./pages/SetTemplate"
 import UserTemplate from "./pages/UserTemplate"
 
 import emptyTemplate from "./assets/data/EmptyTemplate"
 
 function App() {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState()
   const [selectedWorkout, setSelectedWorkout] = useState()
+  const [selectedWeek, setSelectedWeek] = useState()
   const [template, setTemplate] = useState(emptyTemplate)
   // Auto login for development purposes
   useEffect(() => {
@@ -37,17 +39,21 @@ function App() {
         render={props => <UserProfile {...props} userData={userData} />}
       />
       <Route
-        path="/template"
+        path="/template/day"
         component={props => <DayTemplate {...props} template={template} setTemplate={setTemplate} selectedWorkout={selectedWorkout}/>}
+      />
+      <Route
+        path="/template/week"
+        component={props => <WeekTemplate {...props} template={template} selectedWeek={selectedWeek} setSelectedWorkout={setSelectedWeek} />}
       />
       <Route
         exact
         path="/"
-        component={props => <SetTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} />}
+        component={props => <SetTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} setSelectedWeek={setSelectedWeek}/>}
       />
       <Route
         path="/user/template"
-        component={props => <UserTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout}/>}
+        component={props => <UserTemplate {...props} template={template} setTemplate={setTemplate} setSelectedWorkout={setSelectedWorkout} setSelectedWeek={setSelectedWeek} />}
       />
     </div>
   );

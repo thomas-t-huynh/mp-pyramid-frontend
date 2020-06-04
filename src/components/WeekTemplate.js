@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DayCard from './DayCard'
 import styled from "styled-components"
 
@@ -10,12 +10,12 @@ const Container = styled.div`
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 
-function WeekTemplate({ selectedWeek }) {
-    const [weekTemplate, setWeekTemplate] = useState(selectedWeek ? selectedWeek : undefined)
-    console.log(weekTemplate.slice(0,7))
+function WeekTemplate({ selectedWeek, template }) {
+    const { start, end } = selectedWeek
+    const weekTemplate = template.slice(start, end)
     return (
         <Container>
-            {weekTemplate && days.map((dayName, i) => <DayCard key={i} dayName={dayName} day={weekTemplate[i]}/>)}
+            {weekTemplate && days.map((dayName, i) => <DayCard key={i} currIndex={start + i} dayName={dayName} day={weekTemplate[i]}/>)}
         </Container>
     )
 }

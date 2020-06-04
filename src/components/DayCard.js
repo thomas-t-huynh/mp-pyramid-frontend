@@ -15,15 +15,15 @@ const StyledLink = styled(Link)`
     text-decoration: none;
 `
 
-function DayCard({ day, dayName }) {
+function DayCard({ day, dayName, currIndex }) {
     const { setSelectedWorkout } = useContext(WeekTemplateContext)
     return (
-        <StyledLink to="/template/day" onClick={() => setSelectedWorkout(day)}>    
+        <StyledLink to="/template/day" onClick={() => setSelectedWorkout({...day, index: currIndex })}>    
             <Container>
                 <h2>{dayName}</h2>
                 <h3>{day.name}</h3>
-                {day.exercisesOrder.map(exercise => {
-                    return (<h3>{exercise}</h3>)
+                {day.exercisesOrder.map((exercise, i) => {
+                    return (<h3 key={i}>{exercise}</h3>)
                 })}
             </Container>
         </StyledLink>

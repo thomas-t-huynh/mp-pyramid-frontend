@@ -80,7 +80,7 @@ function ProgramTemplate({ setSelectedWorkout, template, setSelectedWeek }) {
         for (let i = 0; i < weeks; i++) {                 
             trainingPlan.push(
                 <CellsContainer key={i}>
-                    <StyledLink to="/template/week" onClick={() => setSelectedWeek(template.slice(i * 7, i * 7 + 7))} ><WeekCell>{i + 1}</WeekCell></StyledLink>
+                    <StyledLink to="/template/week" onClick={() => setSelectedWeek({ start: i * 7, end: i * 7 + 7})} ><WeekCell>{i + 1}</WeekCell></StyledLink>
                     {days.map((day, j) => {
                         const currIndex = ((i * 7) + j)
                         date.add(1, 'days')

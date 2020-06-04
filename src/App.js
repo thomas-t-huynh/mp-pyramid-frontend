@@ -11,12 +11,12 @@ import UserTemplate from "./pages/UserTemplate"
 import { WeekTemplateContext } from "./contexts"
 
 import emptyTemplate from "./assets/data/EmptyTemplate"
-import beginnerSport from "./assets/data/BeginnerSport"
+// import beginnerSport from "./assets/data/BeginnerSport"
 
 function App() {
   const [userData, setUserData] = useState()
   const [selectedWorkout, setSelectedWorkout] = useState()
-  const [selectedWeek, setSelectedWeek] = useState(beginnerSport)
+  const [selectedWeek, setSelectedWeek] = useState({ start: 0, end: 7 })
   const [template, setTemplate] = useState(emptyTemplate)
   // Auto login for development purposes
   useEffect(() => {
@@ -27,7 +27,7 @@ function App() {
       })
       .catch((err) => console.log(err))
   }, [])
-
+  console.log(template[0])
   return (
     <div>
       {/* <Route exact path="/" component={WelcomePage} /> */}

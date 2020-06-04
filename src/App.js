@@ -8,13 +8,15 @@ import DayTemplate from "./components/DayTemplate";
 import WeekTemplate from "./components/WeekTemplate"
 import SetTemplate from "./pages/SetTemplate"
 import UserTemplate from "./pages/UserTemplate"
+import { WeekTemplateContext } from "./contexts"
 
 import emptyTemplate from "./assets/data/EmptyTemplate"
+import beginnerSport from "./assets/data/BeginnerSport"
 
 function App() {
   const [userData, setUserData] = useState()
   const [selectedWorkout, setSelectedWorkout] = useState()
-  const [selectedWeek, setSelectedWeek] = useState()
+  const [selectedWeek, setSelectedWeek] = useState(beginnerSport)
   const [template, setTemplate] = useState(emptyTemplate)
   // Auto login for development purposes
   useEffect(() => {
@@ -44,7 +46,11 @@ function App() {
       />
       <Route
         path="/template/week"
-        component={props => <WeekTemplate {...props} template={template} selectedWeek={selectedWeek} setSelectedWorkout={setSelectedWeek} />}
+        component={props => (
+          <WeekTemplateContext.Provider value={{ setSelectedWorkout }}>
+            <WeekTemplate {...props} template={template} selectedWeek={selectedWeek} setSelectedWorkout={setSelectedWeek} />
+          </WeekTemplateContext.Provider>
+        )}
       />
       <Route
         exact

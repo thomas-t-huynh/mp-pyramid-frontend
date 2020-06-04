@@ -1,6 +1,6 @@
 import React from "react"
 import ProgramTemplate from "../components/ProgramTemplate"
-
+import { WeekTemplateContext } from "../contexts"
 function UserTemplate({template, setTemplate, setSelectedWorkout, setSelectedWeek}) {
     return (
         <div>

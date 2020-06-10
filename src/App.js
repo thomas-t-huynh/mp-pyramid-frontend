@@ -27,7 +27,6 @@ function App() {
       })
       .catch((err) => console.log(err))
   }, [])
-  console.log(template[0])
   return (
     <div>
       {/* <Route exact path="/" component={WelcomePage} /> */}
